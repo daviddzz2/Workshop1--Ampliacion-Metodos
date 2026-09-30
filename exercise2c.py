@@ -80,15 +80,11 @@ for p0 in initial_approximations:
         print()
 
     print("----------------------------------------")
+    print()
 
-
-# ---------------------------------------------------------
-# DISCUSSION / CONCLUSION
-# ---------------------------------------------------------
-
-print()
+# Discussion / Conclusion
 print("DISCUSSION / CONCLUSION")
-print("----------------------------------------")
+print()
 
 # I obtain the number of iterations for each case
 iterations_15_3 = results[1.5][10**(-3)][1]

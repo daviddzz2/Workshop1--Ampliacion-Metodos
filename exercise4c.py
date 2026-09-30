@@ -1,10 +1,6 @@
 # Exercise 4 - Numerical Integration
 #
-# In this exercise I approximate the integral
-#
-#       I = integral from 0 to 2 of exp(-x^2) dx
-#
-# using:
+# In this exercise I approximate the integral of the exercise using:
 # 1. The Composite Trapezoidal Rule
 # 2. The Composite Simpson's 1/3 Rule
 #
@@ -18,19 +14,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-
-# ---------------------------------------------------------
-# FUNCTION
-# ---------------------------------------------------------
-
 def f(x):
     # This is the function that we have to integrate
     return np.exp(-x**2)
 
-
-# ---------------------------------------------------------
-# INTERVAL AND NODES
-# ---------------------------------------------------------
 
 # I define the limits of integration
 a = 0
@@ -49,30 +36,12 @@ x_nodes = np.linspace(a, b, n + 1)
 y_nodes = f(x_nodes)
 
 
-# ---------------------------------------------------------
-# COMPOSITE TRAPEZOIDAL RULE
-# ---------------------------------------------------------
-
 # I calculate the Composite Trapezoidal approximation
 trapezoidal_approx = h * (
     (y_nodes[0] + y_nodes[-1]) / 2
     + np.sum(y_nodes[1:-1])
 )
 
-
-# ---------------------------------------------------------
-# TRAPEZOIDAL ERROR BOUND
-# ---------------------------------------------------------
-
-# For the Composite Trapezoidal Rule, the theoretical error is:
-#
-# |E_T| <= ((b-a)^3 / (12*n^2)) * max|f''(x)|
-#
-# For f(x) = exp(-x^2):
-#
-# f''(x) = (4*x^2 - 2)*exp(-x^2)
-#
-# The maximum absolute value on [0, 2] is 2.
 
 max_f2 = 2
 
@@ -81,10 +50,6 @@ trapezoidal_error_bound = (
     ((b - a)**3) / (12 * n**2)
 ) * max_f2
 
-
-# ---------------------------------------------------------
-# COMPOSITE SIMPSON'S 1/3 RULE
-# ---------------------------------------------------------
 
 # Simpson's Rule requires an even number of subintervals.
 # Since n = 4, it can be applied directly.
@@ -100,20 +65,6 @@ simpson_approx = (
 )
 
 
-# ---------------------------------------------------------
-# SIMPSON ERROR BOUND
-# ---------------------------------------------------------
-
-# For Simpson's Rule, the theoretical error is:
-#
-# |E_S| <= ((b-a)^5 / (180*n^4)) * max|f^(4)(x)|
-#
-# For f(x) = exp(-x^2):
-#
-# f^(4)(x) = (16*x^4 - 48*x^2 + 12)*exp(-x^2)
-#
-# The maximum absolute value on [0, 2] is 12.
-
 max_f4 = 12
 
 # I calculate the theoretical worst-case error bound
@@ -122,25 +73,12 @@ simpson_error_bound = (
 ) * max_f4
 
 
-# ---------------------------------------------------------
-# REFERENCE INTEGRAL
-# ---------------------------------------------------------
-
-# The integral of exp(-x^2) does not have an elementary
-# antiderivative, so I use the numerical reference value
-# obtained from the error function.
-#
-# integral from 0 to 2 of exp(-x^2) dx
-# = sqrt(pi)/2 * erf(2)
 
 reference_integral = (
     math.sqrt(math.pi) / 2 * math.erf(2)
 )
 
 
-# ---------------------------------------------------------
-# TRUE ABSOLUTE ERRORS
-# ---------------------------------------------------------
 
 # I calculate the absolute difference between each
 # numerical approximation and the reference value.
@@ -154,14 +92,8 @@ simpson_absolute_true_error = abs(
 )
 
 
-# ---------------------------------------------------------
-# PRINT RESULTS
-# ---------------------------------------------------------
-
 print()
-print("==============================================")
 print("NUMERICAL INTEGRATION RESULTS")
-print("==============================================")
 
 print()
 print("Number of subintervals:", n)
@@ -199,9 +131,7 @@ print()
 print("==============================================")
 
 
-# ---------------------------------------------------------
-# GRAPHICAL REPRESENTATION
-# ---------------------------------------------------------
+# Graphical representation
 
 # I create many points so that the original function
 # appears smooth in the graphs.
@@ -215,9 +145,7 @@ y = f(x)
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
 
-# =========================================================
-# LEFT GRAPH - TRAPEZOIDAL RULE
-# =========================================================
+# TRAPEZOIDAL RULE
 
 # I select the first graph
 ax1 = axes[0]
@@ -278,9 +206,7 @@ ax1.grid()
 ax1.legend()
 
 
-# =========================================================
-# RIGHT GRAPH - SIMPSON'S 1/3 RULE
-# =========================================================
+# SIMPSON'S 1/3 RULE
 
 # I select the second graph
 ax2 = axes[1]
@@ -351,7 +277,6 @@ for i in range(0, n, 2):
         alpha=0.3
     )
 
-
 # I add labels and a title
 ax2.set_title("Composite Simpson's 1/3 Rule")
 ax2.set_xlabel("x")
@@ -365,9 +290,7 @@ ax2.grid()
 ax2.legend()
 
 
-# ---------------------------------------------------------
-# FINAL GRAPH
-# ---------------------------------------------------------
+# Final graph
 
 # I adjust the spacing between both graphs
 plt.tight_layout()
